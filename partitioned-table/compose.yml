@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17.4
+    ports:
+    - "15432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+    - blog-postgres-execution-time-partitioned-table:/var/lib/postgresql/data
+    - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    - ./sql:/mnt/sql
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 8g
+volumes:
+  blog-postgres-execution-time-partitioned-table:
